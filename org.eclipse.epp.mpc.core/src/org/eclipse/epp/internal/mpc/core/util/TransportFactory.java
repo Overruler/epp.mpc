@@ -129,11 +129,12 @@ public abstract class TransportFactory implements ITransportFactory {
 				throw coreCause;
 			} else if (cause instanceof FileNotFoundException) {
 				throw (FileNotFoundException) cause;
+			} else if (cause != null) {
+				throw new CoreException(new Status(IStatus.ERROR, MarketplaceClientCore.BUNDLE_ID, cause.getLocalizedMessage(), cause));
 			}
-
-		} else {
-			throw new CoreException(new Status(IStatus.ERROR, MarketplaceClientCore.BUNDLE_ID, e.getMessage(), e));
+			throw new CoreException(new Status(IStatus.ERROR, MarketplaceClientCore.BUNDLE_ID, e.getLocalizedMessage(), e));
 		}
+		throw new CoreException(new Status(IStatus.ERROR, MarketplaceClientCore.BUNDLE_ID, e.getMessage(), e));
 	}
 
 
